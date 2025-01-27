@@ -46,36 +46,36 @@ public class Constants {
                 new Translation2d(-WHEEL_BASE / 2.0, WHEEL_BASE / 2.0)
         };
 
-        public static final SwerveModuleConstants MOD0_CONSTANTS = new SwerveModuleConstants();
+        public static final SwerveModuleConstants LF_MODULE_CONSTANTS = new SwerveModuleConstants();
         static {
-            MOD0_CONSTANTS.DriveMotorId = 1;
-            MOD0_CONSTANTS.SteerMotorId = 2;
-            MOD0_CONSTANTS.CANcoderId = 0;
-            MOD0_CONSTANTS.CANcoderOffset = -0.272461;
+            LF_MODULE_CONSTANTS.DriveMotorId = 1;
+            LF_MODULE_CONSTANTS.SteerMotorId = 2;
+            LF_MODULE_CONSTANTS.CANcoderId = 0;
+            LF_MODULE_CONSTANTS.CANcoderOffset = -0.272461;
         }
 
-        public static final SwerveModuleConstants MOD1_CONSTANTS = new SwerveModuleConstants();
+        public static final SwerveModuleConstants RF_MODULE_CONSTANTS = new SwerveModuleConstants();
         static {
-            MOD1_CONSTANTS.DriveMotorId = 11;
-            MOD1_CONSTANTS.SteerMotorId = 12;
-            MOD1_CONSTANTS.CANcoderId = 1;
-            MOD1_CONSTANTS.CANcoderOffset = -0.123047;
+            RF_MODULE_CONSTANTS.DriveMotorId = 11;
+            RF_MODULE_CONSTANTS.SteerMotorId = 12;
+            RF_MODULE_CONSTANTS.CANcoderId = 1;
+            RF_MODULE_CONSTANTS.CANcoderOffset = -0.123047;
         }
 
-        public static final SwerveModuleConstants MOD2_CONSTANTS = new SwerveModuleConstants();
+        public static final SwerveModuleConstants RR_MODULE_CONSTANTS = new SwerveModuleConstants();
         static {
-            MOD2_CONSTANTS.DriveMotorId = 21;   
-            MOD2_CONSTANTS.SteerMotorId = 22;
-            MOD2_CONSTANTS.CANcoderId = 2;
-            MOD2_CONSTANTS.CANcoderOffset = 0.205322;
+            RR_MODULE_CONSTANTS.DriveMotorId = 21;   
+            RR_MODULE_CONSTANTS.SteerMotorId = 22;
+            RR_MODULE_CONSTANTS.CANcoderId = 2;
+            RR_MODULE_CONSTANTS.CANcoderOffset = 0.205322;
         }
 
-        public static final SwerveModuleConstants MOD3_CONSTANTS = new SwerveModuleConstants();
+        public static final SwerveModuleConstants LR_MODULE_CONSTANTS = new SwerveModuleConstants();
         static {
-            MOD3_CONSTANTS.DriveMotorId = 31;
-            MOD3_CONSTANTS.SteerMotorId = 32;
-            MOD3_CONSTANTS.CANcoderId = 3;
-            MOD3_CONSTANTS.CANcoderOffset = -0.119141;
+            LR_MODULE_CONSTANTS.DriveMotorId = 31;
+            LR_MODULE_CONSTANTS.SteerMotorId = 32;
+            LR_MODULE_CONSTANTS.CANcoderId = 3;
+            LR_MODULE_CONSTANTS.CANcoderOffset = -0.119141;
         }
     }
 

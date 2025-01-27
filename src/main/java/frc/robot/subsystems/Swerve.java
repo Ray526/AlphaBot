@@ -35,10 +35,10 @@ public class Swerve extends SubsystemBase {
     private Pigeon2 pigeon = new Pigeon2(SwerveConstants.PIGEON_ID, RobotConstants.CANBUS_NAME);
 
     private SwerveModule[] modules = new SwerveModule[] {
-            new SwerveModule(0, SwerveConstants.MOD0_CONSTANTS),
-            new SwerveModule(1, SwerveConstants.MOD1_CONSTANTS),
-            new SwerveModule(2, SwerveConstants.MOD2_CONSTANTS),
-            new SwerveModule(3, SwerveConstants.MOD3_CONSTANTS)
+            new SwerveModule(0, SwerveConstants.LF_MODULE_CONSTANTS),
+            new SwerveModule(1, SwerveConstants.RF_MODULE_CONSTANTS),
+            new SwerveModule(2, SwerveConstants.RR_MODULE_CONSTANTS),
+            new SwerveModule(3, SwerveConstants.LR_MODULE_CONSTANTS)
     };
     private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(SwerveConstants.MODULE_TRANSLATOIN_METERS);
     private SwerveDriveOdometry odometry = new SwerveDriveOdometry(kinematics, getGyroYaw(), getModulePositions());
