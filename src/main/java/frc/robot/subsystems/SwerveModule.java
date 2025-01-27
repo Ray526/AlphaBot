@@ -50,10 +50,7 @@ public class SwerveModule {
         lastAngle = new Rotation2d();
 
         steerMotor = new SparkMax(moduleConstants.SteerMotorId, MotorType.kBrushless);
-        SparkMaxConfig steerMotorConfig = new SparkMaxConfig();
-        steerMotorConfig.inverted(false);
-        steerMotorConfig.idleMode(IdleMode.kBrake);
-        steerMotor.configure(steerMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        steerMotor.configure(SwerveConstants.STEER_MOTOR_CONFIGURATION, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
         steerCANcoder = new CANcoder(moduleConstants.CANcoderId, RobotConstants.CANBUS_NAME);
         CANcoderConfiguration cancoderConfig = new CANcoderConfiguration();
@@ -63,9 +60,7 @@ public class SwerveModule {
         steerCANcoder.getConfigurator().apply(cancoderConfig);
 
         driveMotor = new TalonFX(moduleConstants.DriveMotorId, RobotConstants.CANBUS_NAME);
-        TalonFXConfiguration talonfxConfig = new TalonFXConfiguration();
-        talonfxConfig.Feedback.SensorToMechanismRatio = SwerveConstants.DRIVE_MOTOR_GEAR_RATIO;
-        driveMotor.getConfigurator().apply(talonfxConfig);
+        driveMotor.getConfigurator().apply(SwerveConstants.DRIVE_MOTOR_CONFIGURATION);
         driveMotor.setNeutralMode(NeutralModeValue.Brake);
     }
 

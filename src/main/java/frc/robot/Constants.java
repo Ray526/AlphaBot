@@ -3,6 +3,7 @@ package frc.robot;
 import static edu.wpi.first.units.Units.Meters;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -76,6 +77,18 @@ public class Constants {
             LR_MODULE_CONSTANTS.SteerMotorId = 32;
             LR_MODULE_CONSTANTS.CANcoderId = 3;
             LR_MODULE_CONSTANTS.CANcoderOffset = -0.119141;
+        }
+
+        // module motor configuration
+        public static final SparkMaxConfig STEER_MOTOR_CONFIGURATION = new SparkMaxConfig();
+        static {
+            STEER_MOTOR_CONFIGURATION.inverted(false);
+            STEER_MOTOR_CONFIGURATION.idleMode(IdleMode.kBrake);
+        }
+
+        public static final TalonFXConfiguration DRIVE_MOTOR_CONFIGURATION = new TalonFXConfiguration();
+        static {
+            DRIVE_MOTOR_CONFIGURATION.Feedback.SensorToMechanismRatio = SwerveConstants.DRIVE_MOTOR_GEAR_RATIO;
         }
     }
 
