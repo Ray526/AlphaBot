@@ -25,8 +25,9 @@ public class RobotContainer {
     public final Waltson waltson = Waltson.getInstance();
     public final Intaker intaker = Intaker.getInstance();
     public final Swerve swerve = Swerve.getInstance();
+    public final Vision vision = Vision.getInstance();
 
-    // private final FullTeleop fullTeleop = new FullTeleop(elevator, intaker, waltson, operator);
+    private final FullTeleop fullTeleop = new FullTeleop(elevator, intaker, waltson, operator); // test only
     private final StateSuperstructure stateSuperstructure = new StateSuperstructure(elevator, intaker, waltson);
     private final TeleopSwerve teleopSwerve = new TeleopSwerve(swerve, driver);
     
@@ -47,7 +48,6 @@ public class RobotContainer {
         elevator.setDefaultCommand(stateSuperstructure);
         intaker.setDefaultCommand(stateSuperstructure);
         waltson.setDefaultCommand(stateSuperstructure);
-        swerve.setDefaultCommand(teleopSwerve);
     }
 
     public Command getAutonomousCommand() {

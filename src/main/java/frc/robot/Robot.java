@@ -11,24 +11,26 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.FSLib2025.state_machine.StateMachine;
+import frc.FSLib2025.state_machine.SwerveStateMachine;
 import frc.FSLib2025.util.LocalADStarAK;
 import frc.robot.Constants.RobotConstants;
 
 /**
- * The methods in this class are called automatically corresponding to each mode, as described in
- * the TimedRobot documentation. If you change the name of this class or the package after creating
+ * The methods in this class are called automatically corresponding to each
+ * mode, as described in
+ * the TimedRobot documentation. If you change the name of this class or the
+ * package after creating
  * this project, you must also update the Main.java file in the project.
  */
 public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
-  private final RobotContainer m_robotContainer;
+
+  private final RobotContainer robotContainer;
 
   public Robot() {
-
     super(RobotConstants.PERIODIC_INTERVAL);
-    m_robotContainer = new RobotContainer();
-
+    robotContainer = new RobotContainer();
   }
 
   @Override
@@ -40,32 +42,63 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    StateMachine.getInstance().update(m_robotContainer.operator.getHID());
+    StateMachine.getInstance().update(robotContainer.operator.getHID());
+    SwerveStateMachine.getInstance().update(robotContainer.driver.getHID(), robotContainer.operator.getHID());
+
+    // correct pose estimate with vision measurements
+    var visionEst = robotContainer.vision.getEstimatedGlobalPose();
+    visionEst.ifPresent(
+        est -> {
+          // change our trust in the measurement based on the tags we can see
+          var estStdDevs = robotContainer.vision.getEstimationStdDevs();
+
+          robotContainer.swerve.addVisionMeasurement(
+              est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+        });
   }
 
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = robotContainer.getAutonomousCommand();
 
-        if (m_autonomousCommand != null) {
-            m_autonomousCommand.schedule();
-        }
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }
   }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+  }
 
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+  }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    // swerve control by driver or operator
+    switch (SwerveStateMachine.getInstance().getSwerveState()) {
+      case START: // when comp start robot control by driver
+        robotContainer.swerve.setDefaultCommand(robotContainer.teleopSwerve);
+        break;
+      case DRIVER_CONTROL:
+        robotContainer.swerve.setDefaultCommand(robotContainer.teleopSwerve);
+        break;
+      case PATH_FOLLOWING:
+        robotContainer.swerve.setDefaultCommand(robotContainer.pathPlanning);
+        break;
+      default:
+        break;
+    }
+  }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
   @Override
   public void testInit() {
@@ -75,11 +108,14 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 
   @Override
-  public void simulationInit() {}
+  public void simulationInit() {
+  }
 
   @Override
-  public void simulationPeriodic() {}
+  public void simulationPeriodic() {
+  }
 }

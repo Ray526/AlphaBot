@@ -25,11 +25,11 @@ public class TeleopSwerve extends Command {
     private double ySpeed = 0.0;
     private double rotSpeed = 0.0;
 
-    private CommandXboxController controller;
+    private CommandXboxController driver;
 
-    public TeleopSwerve(Swerve swerve, CommandXboxController controller) {
+    public TeleopSwerve(Swerve swerve, CommandXboxController driver) {
         this.swerve = swerve;
-        this.controller = controller;
+        this.driver = driver;
         addRequirements(swerve);
     }
 
@@ -37,25 +37,25 @@ public class TeleopSwerve extends Command {
     public void execute() {
 
         // reset odometry
-        if (controller.getHID().getBackButtonPressed()) {
+        if (driver.getHID().getBackButtonPressed()) {
             swerve.setOdometryPosition(new Pose2d());
             swerve.setGyroYaw(new Rotation2d());
         }
 
-        if (controller.getHID().getLeftBumperButtonPressed()) {
+        if (driver.getHID().getLeftBumperButtonPressed()) {
             // slow mode
-            xSpeed = xSlowLimiter.calculate(-controller.getLeftY());
-            ySpeed = ySlowLimiter.calculate(-controller.getLeftX());
-            rotSpeed = rotSlowLimiter.calculate(-controller.getRightX());
+            xSpeed = xSlowLimiter.calculate(-driver.getLeftY());
+            ySpeed = ySlowLimiter.calculate(-driver.getLeftX());
+            rotSpeed = rotSlowLimiter.calculate(-driver.getRightX());
             swerve.drive(
                     new Translation2d(xSpeed, ySpeed).times(SwerveConstants.MAX_MODULE_SPEED),
                     rotSpeed * SwerveConstants.MAX_MODULE_ROTATIONAL_SPEED,
                     true);
         } else {
             // normal drive
-            xSpeed = xLimiter.calculate(-controller.getLeftY());
-            ySpeed = yLimiter.calculate(-controller.getLeftX());
-            rotSpeed = rotLimiter.calculate(-controller.getRightX());
+            xSpeed = xLimiter.calculate(-driver.getLeftY());
+            ySpeed = yLimiter.calculate(-driver.getLeftX());
+            rotSpeed = rotLimiter.calculate(-driver.getRightX());
             swerve.drive(
                     new Translation2d(xSpeed, ySpeed).times(SwerveConstants.MAX_MODULE_SPEED),
                     rotSpeed * SwerveConstants.MAX_MODULE_ROTATIONAL_SPEED,

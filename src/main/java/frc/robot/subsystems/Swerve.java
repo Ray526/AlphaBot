@@ -7,6 +7,8 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -15,12 +17,15 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.RobotConstants;
 import frc.robot.Constants.SwerveConstants;
+import frc.robot.Constants.VisionConstants;
 
 public class Swerve extends SubsystemBase {
 
@@ -42,7 +47,7 @@ public class Swerve extends SubsystemBase {
     };
     private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(SwerveConstants.MODULE_TRANSLATOIN_METERS);
     private SwerveDriveOdometry odometry = new SwerveDriveOdometry(kinematics, getGyroYaw(), getModulePositions());
-    // private SwerveDrivePoseEstimator poseEstimator;
+    private SwerveDrivePoseEstimator poseEstimator;
 
     private Field2d field = new Field2d();
 
@@ -85,6 +90,14 @@ public class Swerve extends SubsystemBase {
             field.getObject("path").setPoses(poses);
         });
 
+        poseEstimator = new SwerveDrivePoseEstimator(
+            kinematics,
+            getGyroYaw(),
+            getModulePositions(),
+            new Pose2d(),
+            VisionConstants.kStateStdDevs,
+            VisionConstants.kVisionMeasurementStdDevs);
+
         odometry.resetPose(new Pose2d());
         pigeon.reset();
     }
@@ -119,13 +132,13 @@ public class Swerve extends SubsystemBase {
         odometry.resetPosition(getGyroYaw(), getModulePositions(), pose);
     }
 
-    // public Pose2d getEstimatedPosition() {
-    // return poseEstimator.getEstimatedPosition();
-    // }
+    public Pose2d getEstimatedPosition() {
+    return poseEstimator.getEstimatedPosition();
+    }
 
-    // public void setEstimatedPosition(Pose2d pose) {
-    // poseEstimator.resetPosition(getGyroYaw(), getModulePositions(), pose);
-    // }
+    public void setEstimatedPosition(Pose2d pose) {
+    poseEstimator.resetPosition(getGyroYaw(), getModulePositions(), pose);
+    }
 
     public ChassisSpeeds getRobotRelativSpeeds() {
         return ChassisSpeeds.fromFieldRelativeSpeeds(kinematics.toChassisSpeeds(getModuleStates()), getGyroYaw());
@@ -157,11 +170,22 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    /** See {@link SwerveDrivePoseEstimator#addVisionMeasurement(Pose2d, double)}. */
+    public void addVisionMeasurement(Pose2d visionMeasurement, double timestampSeconds) {
+        poseEstimator.addVisionMeasurement(visionMeasurement, timestampSeconds);
+    }
+
+    /** See {@link SwerveDrivePoseEstimator#addVisionMeasurement(Pose2d, double, Matrix)}. */
+    public void addVisionMeasurement(
+            Pose2d visionMeasurement, double timestampSeconds, Matrix<N3, N1> stdDevs) {
+        poseEstimator.addVisionMeasurement(visionMeasurement, timestampSeconds, stdDevs);
+    }
+
     @Override
     public void periodic() {
-        // poseEstimator.update(getGyroYaw(), getModulePositions());
+        poseEstimator.update(getGyroYaw(), getModulePositions());
         odometry.update(getGyroYaw(), getModulePositions());
-        field.setRobotPose(getOdometryPosition());
+        field.setRobotPose(getEstimatedPosition());
 
         SmartDashboard.putData("Field", field);
         SmartDashboard.putNumber("gyro (deg)", getGyroYaw().getDegrees());
