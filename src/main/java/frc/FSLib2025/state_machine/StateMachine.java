@@ -7,7 +7,6 @@ public class StateMachine {
     private static StateMachine instance;
 
     private SuperstructureState superstructureState = SuperstructureState.DEFAULT;
-    private WaltsonState waltsonState = WaltsonState.DEFAULT;
 
     public StateMachine() {
         Shuffleboard.getTab("state machine")
@@ -15,7 +14,7 @@ public class StateMachine {
         Shuffleboard.getTab("state machine")
                 .add("intaker state", getSuperstructureState().getIntakerState());
                 Shuffleboard.getTab("state machine")
-                .add("waltson state", getWaltsonState().getWaltsonState());
+                .add("waltson state", getSuperstructureState().getWaltsonState());
     }
 
     public static synchronized StateMachine getInstance() {
@@ -27,10 +26,6 @@ public class StateMachine {
 
     public SuperstructureState getSuperstructureState() {
         return superstructureState;
-    }
-
-    public WaltsonState getWaltsonState() {
-        return waltsonState;
     }
 
 
@@ -174,7 +169,6 @@ public class StateMachine {
         // force set to default
         if (controller.getLeftBumperButton() && controller.getRightBumperButton()) {
             superstructureState = SuperstructureState.DEFAULT;
-            waltsonState = WaltsonState.DEFAULT;
         }
 
     }

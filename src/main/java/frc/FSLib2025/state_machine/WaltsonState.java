@@ -47,8 +47,4 @@ public enum WaltsonState implements Sendable {
         builder.addStringProperty("state", this::getStateName, null);
         builder.addDoubleProperty("angle", this::getAngleValue, null);
     }
-    
-    public WaltsonState getWaltsonState() {
-        return this;
-    }
 }
