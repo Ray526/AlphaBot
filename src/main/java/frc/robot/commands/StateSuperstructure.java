@@ -10,16 +10,19 @@ import frc.robot.subsystems.Waltson;
 public class StateSuperstructure extends Command {
 
     private final Elevator elevator;
-    private final Grabber intaker;
+
+    private final Grabber grabber;
+
     private final Waltson waltson;
 
     private SuperstructureState state;
 
-    public StateSuperstructure(Elevator elevator, Grabber intaker, Waltson waltson) {
+    public StateSuperstructure(Elevator elevator, Grabber grabber, Waltson waltson) {
+
         this.elevator = elevator;
-        this.intaker = intaker;
+        this.grabber = grabber;
         this.waltson = waltson;
-        addRequirements(elevator, intaker, waltson);
+        addRequirements(elevator, grabber, waltson);
     }
 
     @Override
@@ -30,7 +33,7 @@ public class StateSuperstructure extends Command {
     public void execute() {
         state = StateMachine.getInstance().getSuperstructureState();
         elevator.setDesiredState(state.getElevatorState());
-        intaker.setDesiredState(state.getIntakerState());
+        grabber.setDesiredState(state.getGrabberState());
         waltson.setDesiredState(state.getWaltsonState());
     }
 
