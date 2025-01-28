@@ -4,18 +4,18 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 import frc.FSLib2025.state_machine.StateMachine;
 import frc.FSLib2025.state_machine.SuperstructureState;
-import frc.robot.subsystems.Intaker;
+import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.Waltson;
 
 public class StateSuperstructure extends Command {
 
     private final Elevator elevator;
-    private final Intaker intaker;
+    private final Grabber intaker;
     private final Waltson waltson;
 
     private SuperstructureState state;
 
-    public StateSuperstructure(Elevator elevator, Intaker intaker, Waltson waltson) {
+    public StateSuperstructure(Elevator elevator, Grabber intaker, Waltson waltson) {
         this.elevator = elevator;
         this.intaker = intaker;
         this.waltson = waltson;

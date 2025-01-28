@@ -12,7 +12,7 @@ public class StateMachine {
         Shuffleboard.getTab("state machine")
                 .add("elevator state", getSuperstructureState().getElevatorState());
         Shuffleboard.getTab("state machine")
-                .add("intaker state", getSuperstructureState().getIntakerState());
+                .add("intaker state", getSuperstructureState().getGrabberState());
                 Shuffleboard.getTab("state machine")
                 .add("waltson state", getSuperstructureState().getWaltsonState());
     }
