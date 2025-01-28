@@ -2,75 +2,75 @@ package frc.FSLib2025.state_machine;
 
 public enum SuperstructureState {
     DEFAULT(
-            IntakerState.EMPTY,
+            GrabberState.EMPTY,
             ElevatorState.DEFAULT,
             WaltsonState.DEFAULT),
     CORAL_STATION(
-            IntakerState.INTAKING,
+            GrabberState.INTAKING,
             ElevatorState.CORAL_STATION,
             WaltsonState.DEFAULT),
     L1(
-            IntakerState.HOLD,
+            GrabberState.HOLD,
             ElevatorState.L1,
             WaltsonState.DEFAULT),
     L1_PLACEMENT(
-            IntakerState.PALCE,
+            GrabberState.PALCE,
             ElevatorState.L1,
             WaltsonState.DEFAULT),
     L2(
-            IntakerState.HOLD,
+            GrabberState.HOLD,
             ElevatorState.L2,
             WaltsonState.DEFAULT),
     L2_PLACEMENT(
-            IntakerState.PALCE,
+            GrabberState.PALCE,
             ElevatorState.L2,
             WaltsonState.DEFAULT),
     L3(
-            IntakerState.HOLD,
+            GrabberState.HOLD,
             ElevatorState.L3,
             WaltsonState.DEFAULT),
     L3_PLACEMENT(
-            IntakerState.PALCE,
+            GrabberState.PALCE,
             ElevatorState.L3,
             WaltsonState.DEFAULT),
     L4(
-            IntakerState.HOLD,
+            GrabberState.HOLD,
             ElevatorState.L4,
             WaltsonState.DEFAULT),
     L4_PLACEMENT(
-            IntakerState.PALCE,
+            GrabberState.PALCE,
             ElevatorState.L4,
             WaltsonState.DEFAULT),
     PROCESSOR(
-            IntakerState.EMPTY,
+            GrabberState.EMPTY,
             ElevatorState.DEFAULT,
             WaltsonState.INTAKE),
     PROCESSOR_PLACEMECT(
-            IntakerState.EMPTY,
+            GrabberState.EMPTY,
             ElevatorState.DEFAULT,
             WaltsonState.PROCESSOR),
     CLIMB_READY(
-            IntakerState.EMPTY,
+            GrabberState.EMPTY,
             ElevatorState.DEFAULT,
             WaltsonState.CLIMB_READY),
     CLIMB(
-        IntakerState.EMPTY,
+        GrabberState.EMPTY,
         ElevatorState.DEFAULT,
         WaltsonState.CLIMB);
 
-    private final IntakerState intakerState;
+    private final GrabberState grabberState;
     private final ElevatorState elevatorState;
     private final WaltsonState waltsonState;
 
 
-    private SuperstructureState(IntakerState intakerState, ElevatorState elevatorState, WaltsonState waltsonState) {
-        this.intakerState = intakerState;
+    private SuperstructureState(GrabberState grabberState, ElevatorState elevatorState, WaltsonState waltsonState) {
+        this.grabberState = grabberState;
         this.elevatorState = elevatorState;
         this.waltsonState = waltsonState;
     }
 
-    public IntakerState getIntakerState() {
-        return intakerState;
+    public GrabberState getGrabberState() {
+        return grabberState;
     }
 
     public ElevatorState getElevatorState() {

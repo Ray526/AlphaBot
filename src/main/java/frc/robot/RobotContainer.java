@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.RobotConstants;
 import frc.robot.commands.FullTeleop;
+import frc.robot.commands.PathPlanning;
 import frc.robot.commands.StateSuperstructure;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.subsystems.Elevator;
@@ -29,7 +30,8 @@ public class RobotContainer {
 
     private final FullTeleop fullTeleop = new FullTeleop(elevator, intaker, waltson, operator); // test only
     private final StateSuperstructure stateSuperstructure = new StateSuperstructure(elevator, intaker, waltson);
-    private final TeleopSwerve teleopSwerve = new TeleopSwerve(swerve, driver);
+    public final TeleopSwerve teleopSwerve = new TeleopSwerve(swerve, driver);
+    public final PathPlanning pathPlanning = new PathPlanning();
     
     private final SendableChooser<Command> autoChooser;
     

@@ -155,31 +155,31 @@ public class Constants {
         public static final double ELEVATOR_KV = 0;
         public static final double ELEVATOR_KA = 0;
 
-        // intaker motor constants
-        public static final int INTAKER_UP_MOTOR_ID = 0;
-        public static final int INTAKER_LOW_MOTOR_ID = 0;
+        // grabber motor constants
+        public static final int GRABBER_UP_MOTOR_ID = 0;
+        public static final int GRABBER_LOW_MOTOR_ID = 0;
 
-        // intaker motor configuration
-        public static final SparkMaxConfig INTAKER_UP_MOTOR_CONFIGURATION = new SparkMaxConfig();
+        // grabber motor configuration
+        public static final SparkMaxConfig GRABBER_UP_MOTOR_CONFIGURATION = new SparkMaxConfig();
         static {
-            INTAKER_UP_MOTOR_CONFIGURATION.inverted(true);
-            INTAKER_UP_MOTOR_CONFIGURATION.idleMode(IdleMode.kBrake); // super idol的笑容
+            GRABBER_UP_MOTOR_CONFIGURATION.inverted(true);
+            GRABBER_UP_MOTOR_CONFIGURATION.idleMode(IdleMode.kBrake); // super idol的笑容
         }
-        public static final SparkMaxConfig INTAKER_LOW_MOTOR_CONFIGURATION = new SparkMaxConfig();
+        public static final SparkMaxConfig GRABBER_LOW_MOTOR_CONFIGURATION = new SparkMaxConfig();
         static {
-            INTAKER_LOW_MOTOR_CONFIGURATION.inverted(false);
-            INTAKER_LOW_MOTOR_CONFIGURATION.idleMode(IdleMode.kBrake);
+            GRABBER_LOW_MOTOR_CONFIGURATION.inverted(false);
+            GRABBER_LOW_MOTOR_CONFIGURATION.idleMode(IdleMode.kBrake);
         }
 
-        // intaker speed constants
-        public static final double INTAKER_UP_EMPTY_SPEED = 0;
-        public static final double INTAKER_UP_INTAKING_SPEED = 0;
-        public static final double INTAKER_UP_HOLD_SPEED = 0;
-        public static final double INTAKER_UP_PLACE_SPEED = 0;
-        public static final double INTAKER_LOW_EMPTY_SPEED = 0;
-        public static final double INTAKER_LOW_INTAKING_SPEED = 0;
-        public static final double INTAKER_LOW_HOLD_SPEED = 0;
-        public static final double INTAKER_LOW_PLACE_SPEED = 0;
+        // grabber speed constants
+        public static final double GRABBER_UP_EMPTY_SPEED = 0;
+        public static final double GRABBER_UP_INTAKING_SPEED = 0;
+        public static final double GRABBER_UP_HOLD_SPEED = 0;
+        public static final double GRABBER_UP_PLACE_SPEED = 0;
+        public static final double GRABBER_LOW_EMPTY_SPEED = 0;
+        public static final double GRABBER_LOW_INTAKING_SPEED = 0;
+        public static final double GRABBER_LOW_HOLD_SPEED = 0;
+        public static final double GRABBER_LOW_PLACE_SPEED = 0;
     }
 
     public static final class WaltsonConstants{

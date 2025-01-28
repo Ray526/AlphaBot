@@ -45,7 +45,8 @@ public class Robot extends TimedRobot {
     StateMachine.getInstance().update(robotContainer.operator.getHID());
     SwerveStateMachine.getInstance().update(robotContainer.driver.getHID(), robotContainer.operator.getHID());
 
-    // correct pose estimate with vision measurements
+
+    // correct pose estimation with vision measurements
     var visionEst = robotContainer.vision.getEstimatedGlobalPose();
     visionEst.ifPresent(
         est -> {
