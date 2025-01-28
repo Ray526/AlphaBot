@@ -10,12 +10,15 @@ import frc.robot.subsystems.Waltson;
 public class StateSuperstructure extends Command {
 
     private final Elevator elevator;
+
     private final Grabber grabber;
+
     private final Waltson waltson;
 
     private SuperstructureState state;
 
     public StateSuperstructure(Elevator elevator, Grabber grabber, Waltson waltson) {
+
         this.elevator = elevator;
         this.grabber = grabber;
         this.waltson = waltson;
